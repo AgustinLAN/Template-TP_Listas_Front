@@ -1,9 +1,16 @@
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0px;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0px;
 }
 
 .comida-container {
-  /* Estilos para el contenedor de la lista */
+  display: grid;
+  grid-template-columns: repeat(4, ifr);
+  gap: 33px;
+  .card {
+    width: 300px;
+    height: 300px;
+    border: 3px, solid #00000000;
+  }
 }

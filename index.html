@@ -16,10 +16,31 @@
     </main>
 
     <section class="addFood">
-      <label> Nombre del KEKE</label>
       <form id="agregarComida">
-        <input type="placeholder" />
-        <button type="submit">Agregar KEKE</button>
+        <h2>Agregar comida</h2>
+        <label>Nombre de comida</label>
+        <input
+          type="text"
+          name="nombre"
+          placeholder="Nombre del comida"
+          required
+        />
+        <label>Tipo de comida</label>
+        <input type="text" name="categoria" placeholder="tipo de comida" />
+
+        <label>provincia de la comida</label>
+        <input
+          type="text"
+          name="provincia"
+          placeholder="provincia del comida"
+        />
+        <label>ingrendientes de la comida</label>
+        <input
+          type="text"
+          name="ingredientes"
+          placeholder="ingredientes de la comida"
+        />
+        <button type="submit" id="boton-agregar">Agregar comida</button>
       </form>
     </section>
 
