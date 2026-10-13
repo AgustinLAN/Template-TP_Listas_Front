@@ -1,12 +1,12 @@
 //Cargar comidas en memoria desde el JSON
-fetch("./data/comidas.json") // Ruta al archivo JSON
+fetch("./data/comidas-extended.json") // Ruta al archivo JSON
   .then((response) => response.json()) // Convertir la respuesta en JSON
   .then((data) => {
     // Aquí tienes acceso al JSON en formato de objeto JS
     console.log("Comidas cargadas desde JSON:");
     console.log(data);
     comidas = data; // Asignar el JSON a la variable comidas
-    mostrarComidasConForEach();
+    mostrarComidas(comidas);
   })
   .catch((error) => {
     // Manejo de errores al leer el archivo JSON
@@ -14,6 +14,9 @@ fetch("./data/comidas.json") // Ruta al archivo JSON
   });
 const formComidaNueva = document.getElementById("agregarComida");
 const comidaContainer = document.getElementById("comidaContainer");
+const filtrarcategoria = document.getElementById("filtrocategoria");
+const filtrarprovincia = document.getElementById("filtroprovincia");
+
 let comidas = [];
 /*Mostrar comidas viejo lul xd---
 //                              |
@@ -129,9 +132,10 @@ function mostrarComidas() {
     }
   }
 }*/
-function mostrarComidasConForEach() {
+
+function mostrarComidas(lista) {
   comidaContainer.innerHTML = "";
-  comidas.forEach((comida) => {
+  lista.forEach((comida) => {
     comidaContainer.innerHTML += `
       <article class="comida1">
         <h2 class="comida">${comida.nombre}</h2>
@@ -147,7 +151,7 @@ function mostrarComidasConForEach() {
     `;
   });
 }
-mostrarComidasConForEach();
+mostrarComidas();
 formComidaNueva.addEventListener("submit", (e) => {
   e.preventDefault();
   let nuevaComida = {
@@ -157,6 +161,30 @@ formComidaNueva.addEventListener("submit", (e) => {
     ingredientes: e.target.ingredientes.value.split(","),
   };
   comidas.push(nuevaComida);
-  mostrarComidasConForEach();
+  mostrarComidas();
   formComidaNueva.reset();
 });
+function filtrar() {
+  const comidasFiltradas = comidas.filter((comida) => {
+    return (
+      comida.categoria.includes(filtroCategoria.value) &&
+      comida.provincia.includes(filtroProvincia.value)
+    );
+  });
+  mostrarComidas(comidasFiltradas);
+}
+function buscar() {
+  const texto = buscador.value.toLowerCase();
+  const comidasFiltradas = comidas.filter((comida) => {
+    return (
+      comida.nombre.toLowerCase().includes(texto) ||
+      comida.provincia.toLowerCase().includes(texto) ||
+      comida.categoria.toLowerCase().includes(texto)
+    );
+  });
+  mostrarComidas(comidasFiltradas);
+}
+
+filtroProvincia.addEventListener("change", filtrar);
+filtroCategoria.addEventListener("change", filtrar);
+buscador.addEventListener("input", buscar);
